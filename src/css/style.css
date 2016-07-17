@@ -1,0 +1,60 @@
+body {
+	padding: 50px;
+	background-color: #66CCFF;
+	font-family: sans-serif;
+	font-size: 16px;
+	text-align: center;
+}
+
+h1 {
+	
+	font-size: 24px;
+}
+h2 {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+ul, li {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+
+.listContainer {
+	width: 250px;
+} 
+
+.updateForm {
+	display: block;
+	padding: 20px;
+	background-color: gray;
+	border-radius: 15px 15px 0 0;
+}
+
+.subList {
+	padding: 10px 2px 2px 2px;
+}
+
+.gameInfo {
+	font-weight: normal;
+}
+
+.gamePlayListMain .header input {
+	padding: 10px;
+	font-size: 16px;
+	border: 2px solid #FFF;
+}
+.gamePlayListMain .header button {
+	padding: 10px;
+	font-size: 16px;
+	margin: 10px;
+	background-color: #0066FF;
+	color: #FFF;
+	border: 2px solid #0066FF;
+}
+.gamePlayListMain .header button:hover {
+	background-color: #003399;
+	border: 2px solid #003399;
+	cursor: pointer;
+}
