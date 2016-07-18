@@ -58,7 +58,16 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var gameCount = 0;
+	var gameCount = 0; // Jess Mear
+	// React Game Library
+	// Features Desired:
+	// sorting entries
+	// deleting entries
+	// editing text
+	// changing times-finished or currently-playing by clicking
+	// styling the dropdowns
+
+	var gameCompleteCount = 0;
 
 	var AddGameToList = _react2.default.createClass({
 	    displayName: 'AddGameToList',
@@ -69,6 +78,13 @@
 	        };
 	    },
 	    addGame: function addGame(e) {
+	        if (this.userTitle.value === "") {
+	            e.preventDefault();
+	            return;
+	        }
+	        if (this.userFinished.value !== "0") {
+	            gameCompleteCount++;
+	        }
 	        var gameArray = this.state.games;
 	        gameCount++;
 	        gameArray.push({
@@ -84,7 +100,7 @@
 	        });
 
 	        this.userTitle.value = "";
-	        this.userFinished.value = "never finished";
+	        this.userFinished.value = "0";
 	        this.userConsole.value = "";
 	        this.userPlayStatus.value = "playing";
 	        e.preventDefault();
@@ -98,7 +114,15 @@
 	            _react2.default.createElement(
 	                'h1',
 	                null,
-	                'Favorite Video Game Library'
+	                'Video Game Library'
+	            ),
+	            _react2.default.createElement(
+	                'h3',
+	                null,
+	                gameCount,
+	                ' Games, ',
+	                gameCompleteCount,
+	                ' Completed'
 	            ),
 	            _react2.default.createElement(
 	                'div',
@@ -109,11 +133,11 @@
 	                    _react2.default.createElement('input', { ref: function ref(arg) {
 	                            return _this.userTitle = arg;
 	                        },
-	                        placeholder: 'Enter a title...' }),
+	                        placeholder: 'Game title...' }),
 	                    _react2.default.createElement('input', { ref: function ref(arg) {
 	                            return _this.userConsole = arg;
 	                        },
-	                        placeholder: 'Enter the console...' }),
+	                        placeholder: 'Console...' }),
 	                    _react2.default.createElement(
 	                        'select',
 	                        { name: 'completions', ref: function ref(arg) {
@@ -121,23 +145,23 @@
 	                            } },
 	                        _react2.default.createElement(
 	                            'option',
-	                            { value: 'never finished' },
-	                            '0'
+	                            { value: '0' },
+	                            'Never Finished'
 	                        ),
 	                        _react2.default.createElement(
 	                            'option',
-	                            { value: 'finished once' },
-	                            '1'
+	                            { value: '1' },
+	                            'Finished Once'
 	                        ),
 	                        _react2.default.createElement(
 	                            'option',
-	                            { value: 'finished twice' },
-	                            '2'
+	                            { value: '2' },
+	                            'Finished Twice'
 	                        ),
 	                        _react2.default.createElement(
 	                            'option',
-	                            { value: 'finished many times' },
-	                            '3+'
+	                            { value: '3' },
+	                            'Finished Many Times'
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -152,7 +176,7 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            'option',
-	                            { value: 'not playing' },
+	                            { value: 'notplaying' },
 	                            'Not Playing'
 	                        )
 	                    ),
@@ -21229,9 +21253,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	//import { UpdateForm } from './updateForm';
-
-
 	var ListContainer = exports.ListContainer = function (_React$Component) {
 		_inherits(ListContainer, _React$Component);
 
@@ -21247,7 +21268,21 @@
 				return _react2.default.createElement(
 					'div',
 					{ className: 'listContainer' },
-					_react2.default.createElement(_subList.SubList, { listState: this.props.listState })
+					_react2.default.createElement(_subList.SubList, { listState: this.props.listState }),
+					_react2.default.createElement(
+						'div',
+						{ className: 'legend' },
+						'Finished Once: ',
+						_react2.default.createElement('i', { className: 'fa fa-star fa-lg stars1', 'aria-hidden': 'true' }),
+						'Finished Twice: ',
+						_react2.default.createElement('i', { className: 'fa fa-star fa-lg stars2', 'aria-hidden': 'true' }),
+						'Finished Many Times: ',
+						_react2.default.createElement('i', { className: 'fa fa-star fa-lg stars3', 'aria-hidden': 'true' }),
+						'Currently Playing: ',
+						_react2.default.createElement('i', { className: 'fa fa-gamepad fa-2x playingcolor', 'aria-hidden': 'true' }),
+						'Not Playing: ',
+						_react2.default.createElement('i', { className: 'fa fa-gamepad fa-2x notplayingcolor', 'aria-hidden': 'true' })
+					)
 				);
 			}
 		}]);
@@ -21354,24 +21389,38 @@
 		_createClass(GameInfo, [{
 			key: 'render',
 			value: function render() {
+				var stars = "completions";
+				if (this.props.beatNum === "0") {
+					stars = "completions stars0";
+				} else if (this.props.beatNum === "1") {
+					stars = "completions stars1";
+				} else if (this.props.beatNum === "2") {
+					stars = "completions stars2";
+				} else if (this.props.beatNum === "3") {
+					stars = "completions stars3";
+				}
 				return _react2.default.createElement(
 					'li',
 					{ className: 'gameInfo' },
-					this.props.title,
+					_react2.default.createElement(
+						'span',
+						{ className: 'gameTitle' },
+						this.props.title
+					),
+					_react2.default.createElement(
+						'span',
+						{ className: this.props.playing === "playing" ? "playing" : "notplaying" },
+						_react2.default.createElement('i', { className: 'fa fa-gamepad fa-2x', 'aria-hidden': 'true' })
+					),
+					_react2.default.createElement(
+						'span',
+						{ className: stars },
+						_react2.default.createElement('i', { className: 'fa fa-star fa-lg', 'aria-hidden': 'true' })
+					),
 					_react2.default.createElement(
 						'span',
 						{ className: 'console' },
 						this.props.console
-					),
-					_react2.default.createElement(
-						'span',
-						{ className: 'completions' },
-						this.props.beatNum
-					),
-					_react2.default.createElement(
-						'span',
-						{ className: 'playing' },
-						this.props.playing
 					)
 				);
 			}
