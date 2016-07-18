@@ -134,7 +134,7 @@
 	    id: 6,
 	    gamename: "Super Mario Bros",
 	    timesbeaten: 25,
-	    console: "NES",
+	    console: "Legacy",
 	    currentlyPlaying: false
 	}];
 
@@ -21222,9 +21222,10 @@
 						'Video Game Library'
 					),
 					_react2.default.createElement(_updateForm.UpdateForm, null),
-					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, console: 'android' }),
-					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, console: 'handheld' }),
-					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, console: 'home' })
+					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, consoleType: 'Android' }),
+					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, consoleType: 'DS' }),
+					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, consoleType: 'Wii' }),
+					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, consoleType: 'Legacy' })
 				);
 			}
 		}]);
@@ -21319,18 +21320,25 @@
 		_createClass(SubList, [{
 			key: 'render',
 			value: function render() {
+				var type = this.props.consoleType;
 				return _react2.default.createElement(
 					'div',
 					{ className: 'subList' },
 					_react2.default.createElement(
+						'h2',
+						null,
+						this.props.consoleType,
+						' Games'
+					),
+					_react2.default.createElement(
 						'ul',
 						null,
 						this.props.listState.map(function (arg) {
-							return _react2.default.createElement(
+							return arg["console"] === type ? _react2.default.createElement(
 								'li',
 								{ key: arg["id"] },
 								arg["gamename"]
-							);
+							) : null;
 						})
 					)
 				);

@@ -10,9 +10,10 @@ export class ListContainer extends React.Component {
 			<div className="listContainer">
 				<h1>Video Game Library</h1>
 				<UpdateForm />
-				<SubList listState={this.props.listState} console="android"/>
-				<SubList listState={this.props.listState} console="handheld"/>
-				<SubList listState={this.props.listState} console="home"/>
+				<SubList listState={this.props.listState} consoleType="Android"/>
+				<SubList listState={this.props.listState} consoleType="DS"/>
+				<SubList listState={this.props.listState} consoleType="Wii"/>
+				<SubList listState={this.props.listState} consoleType="Legacy"/>
 			</div>
 		);
 	}

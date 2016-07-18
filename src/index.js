@@ -93,7 +93,7 @@ const startState =
             id: 6,
             gamename: "Super Mario Bros",
             timesbeaten: 25,
-            console: "NES",
+            console: "Legacy",
             currentlyPlaying: false
         }
     ];

@@ -16,9 +16,18 @@ h2 {
 }
 
 ul, li {
-	padding: 0px;
 	margin: 0px;
+	padding: 0px;
+	text-align: left;
+}
+
+li {
 	list-style: none;
+	display: block;
+	border-radius: 8px;
+	padding: 10px;
+	background-color: dodgerblue;
+	margin: 6px
 }
 
 .listContainer {
