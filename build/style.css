@@ -5,7 +5,9 @@ body {
 	font-size: 16px;
 	text-align: center;
 }
-
+.listContainer {
+	width: 600px;
+} 
 h1 {
 	
 	font-size: 24px;
@@ -15,10 +17,9 @@ h2 {
 	font-weight: bold;
 }
 
-ul, li {
+ul {
 	margin: 0px;
 	padding: 0px;
-	text-align: left;
 }
 
 li {
@@ -27,12 +28,30 @@ li {
 	border-radius: 8px;
 	padding: 10px;
 	background-color: dodgerblue;
-	margin: 6px
+	margin: 6px;
+	height: 30px;
+	line-height: 30px;
+	text-align: left;
 }
 
-.listContainer {
-	width: 250px;
-} 
+.completions, .playing, .console {
+	position: absolute;
+	font-size: 12px;
+	text-transform: uppercase;
+	line-height: 30px;
+}
+
+.console {
+	left: 325px;
+}
+
+.completions {
+	left: 410px;
+}
+
+.playing {
+	left: 550px;
+}
 
 .updateForm {
 	display: block;

@@ -58,87 +58,117 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var startState = [{
-	    id: 7,
-	    gamename: "Monument Valley",
-	    timesbeaten: 2,
-	    console: "Android",
-	    currentlyPlaying: false
-	}, {
-	    id: 11,
-	    gamename: "Sugar Sugar",
-	    timesbeaten: 0,
-	    console: "Android",
-	    currentlyPlaying: false
-	}, {
-	    id: 12,
-	    gamename: "Pokemon Go",
-	    timesbeaten: 0,
-	    console: "Android",
-	    currentlyPlaying: true
-	}, {
-	    id: 13,
-	    gamename: "LightBot",
-	    timesbeaten: 0,
-	    console: "Android",
-	    currentlyPlaying: false
-	}, {
-	    id: 1,
-	    gamename: "Bravely Default",
-	    timesbeaten: 1,
-	    console: "DS",
-	    currentlyPlaying: false
-	}, {
-	    id: 4,
-	    gamename: "Bravely Second",
-	    timesbeaten: 0,
-	    console: "DS",
-	    currentlyPlaying: true
-	}, {
-	    id: 9,
-	    gamename: "Kirby Canvas Curse",
-	    timesbeaten: 1,
-	    console: "DS",
-	    currentlyPlaying: false
-	}, {
-	    id: 10,
-	    gamename: "New Super Mario Bros DS",
-	    timesbeaten: 2,
-	    console: "DS",
-	    currentlyPlaying: false
-	}, {
-	    id: 8,
-	    gamename: "Sticker Star",
-	    timesbeaten: 0,
-	    console: "DS",
-	    currentlyPlaying: false
-	}, {
-	    id: 2,
-	    gamename: "Skyward Sword",
-	    timesbeaten: 0,
-	    console: "Wii",
-	    currentlyPlaying: false
-	}, {
-	    id: 3,
-	    gamename: "Pikmin",
-	    timesbeaten: 0,
-	    console: "Wii",
-	    currentlyPlaying: false
-	}, {
-	    id: 5,
-	    gamename: "Kirby's Epic Yarn",
-	    timesbeaten: 1,
-	    console: "Wii",
-	    currentlyPlaying: false
-	}, {
-	    id: 6,
-	    gamename: "Super Mario Bros",
-	    timesbeaten: 25,
-	    console: "Legacy",
-	    currentlyPlaying: false
-	}];
+	var gameCount = 0;
 
-	_reactDom2.default.render(_react2.default.createElement(_listContainer.ListContainer, { listState: startState }), document.getElementById('listbox'));
+	var AddGameToList = _react2.default.createClass({
+	    displayName: 'AddGameToList',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            games: []
+	        };
+	    },
+	    addGame: function addGame(e) {
+	        var gameArray = this.state.games;
+	        gameCount++;
+	        gameArray.push({
+	            gamename: this.userTitle.value,
+	            id: gameCount,
+	            timesbeaten: this.userFinished.value,
+	            console: this.userConsole.value,
+	            currentlyPlaying: this.userPlayStatus.value
+	        });
+
+	        this.setState({
+	            games: gameArray
+	        });
+
+	        this.userTitle.value = "";
+	        this.userFinished.value = "never finished";
+	        this.userConsole.value = "";
+	        this.userPlayStatus.value = "playing";
+	        e.preventDefault();
+	    },
+	    render: function render() {
+	        var _this = this;
+
+	        return _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	                'h1',
+	                null,
+	                'Favorite Video Game Library'
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'updateForm' },
+	                _react2.default.createElement(
+	                    'form',
+	                    { onSubmit: this.addGame },
+	                    _react2.default.createElement('input', { ref: function ref(arg) {
+	                            return _this.userTitle = arg;
+	                        },
+	                        placeholder: 'Enter a title...' }),
+	                    _react2.default.createElement('input', { ref: function ref(arg) {
+	                            return _this.userConsole = arg;
+	                        },
+	                        placeholder: 'Enter the console...' }),
+	                    _react2.default.createElement(
+	                        'select',
+	                        { name: 'completions', ref: function ref(arg) {
+	                                return _this.userFinished = arg;
+	                            } },
+	                        _react2.default.createElement(
+	                            'option',
+	                            { value: 'never finished' },
+	                            '0'
+	                        ),
+	                        _react2.default.createElement(
+	                            'option',
+	                            { value: 'finished once' },
+	                            '1'
+	                        ),
+	                        _react2.default.createElement(
+	                            'option',
+	                            { value: 'finished twice' },
+	                            '2'
+	                        ),
+	                        _react2.default.createElement(
+	                            'option',
+	                            { value: 'finished many times' },
+	                            '3+'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'select',
+	                        { name: 'playStatus', ref: function ref(arg) {
+	                                return _this.userPlayStatus = arg;
+	                            } },
+	                        _react2.default.createElement(
+	                            'option',
+	                            { value: 'playing' },
+	                            'Currently Playing'
+	                        ),
+	                        _react2.default.createElement(
+	                            'option',
+	                            { value: 'not playing' },
+	                            'Not Playing'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { type: 'submit' },
+	                        'Add Game'
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(_listContainer.ListContainer, { listState: this.state.games })
+	        );
+	    }
+	});
+
+	_reactDom2.default.render(_react2.default.createElement(AddGameToList, null), document.getElementById('listbox'));
 
 /***/ },
 /* 1 */
@@ -21189,9 +21219,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _updateForm = __webpack_require__(173);
-
-	var _subList = __webpack_require__(174);
+	var _subList = __webpack_require__(173);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21200,6 +21228,9 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	//import { UpdateForm } from './updateForm';
+
 
 	var ListContainer = exports.ListContainer = function (_React$Component) {
 		_inherits(ListContainer, _React$Component);
@@ -21216,16 +21247,7 @@
 				return _react2.default.createElement(
 					'div',
 					{ className: 'listContainer' },
-					_react2.default.createElement(
-						'h1',
-						null,
-						'Video Game Library'
-					),
-					_react2.default.createElement(_updateForm.UpdateForm, null),
-					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, consoleType: 'Android' }),
-					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, consoleType: 'DS' }),
-					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, consoleType: 'Wii' }),
-					_react2.default.createElement(_subList.SubList, { listState: this.props.listState, consoleType: 'Legacy' })
+					_react2.default.createElement(_subList.SubList, { listState: this.props.listState })
 				);
 			}
 		}]);
@@ -21242,54 +21264,6 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.UpdateForm = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var UpdateForm = exports.UpdateForm = function (_React$Component) {
-		_inherits(UpdateForm, _React$Component);
-
-		function UpdateForm() {
-			_classCallCheck(this, UpdateForm);
-
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(UpdateForm).apply(this, arguments));
-		}
-
-		_createClass(UpdateForm, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'updateForm' },
-					'PUT IN GAME AND GAME INFO TY'
-				);
-			}
-		}]);
-
-		return UpdateForm;
-	}(_react2.default.Component);
-
-/***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
 	exports.SubList = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -21298,7 +21272,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _gameInfo = __webpack_require__(175);
+	var _gameInfo = __webpack_require__(174);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21320,25 +21294,20 @@
 		_createClass(SubList, [{
 			key: 'render',
 			value: function render() {
-				var type = this.props.consoleType;
 				return _react2.default.createElement(
 					'div',
 					{ className: 'subList' },
 					_react2.default.createElement(
-						'h2',
-						null,
-						this.props.consoleType,
-						' Games'
-					),
-					_react2.default.createElement(
 						'ul',
 						null,
 						this.props.listState.map(function (arg) {
-							return arg["console"] === type ? _react2.default.createElement(
-								'li',
-								{ key: arg["id"] },
-								arg["gamename"]
-							) : null;
+							return _react2.default.createElement(_gameInfo.GameInfo, {
+								key: arg["id"],
+								title: arg["gamename"],
+								console: arg["console"],
+								beatNum: arg["timesbeaten"],
+								playing: arg["currentlyPlaying"]
+							});
 						})
 					)
 				);
@@ -21349,7 +21318,7 @@
 	}(_react2.default.Component);
 
 /***/ },
-/* 175 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21386,9 +21355,24 @@
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					'div',
+					'li',
 					{ className: 'gameInfo' },
-					this.props.title
+					this.props.title,
+					_react2.default.createElement(
+						'span',
+						{ className: 'console' },
+						this.props.console
+					),
+					_react2.default.createElement(
+						'span',
+						{ className: 'completions' },
+						this.props.beatNum
+					),
+					_react2.default.createElement(
+						'span',
+						{ className: 'playing' },
+						this.props.playing
+					)
 				);
 			}
 		}]);

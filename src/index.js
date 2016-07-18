@@ -2,103 +2,72 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { ListContainer } from './components/listContainer';
+    
+var gameCount = 0;
 
-const startState = 
-	[ 
-        {
-            id: 7,
-            gamename: "Monument Valley",
-            timesbeaten: 2,
-            console: "Android",
-            currentlyPlaying: false
-        },
-        {
-            id: 11,
-            gamename: "Sugar Sugar",
-            timesbeaten: 0,
-            console: "Android",
-            currentlyPlaying: false
-        },
-        {
-            id: 12,
-            gamename: "Pokemon Go",
-            timesbeaten: 0,
-            console: "Android",
-            currentlyPlaying: true
-        },
-        {
-            id: 13,
-            gamename: "LightBot",
-            timesbeaten: 0,
-            console: "Android",
-            currentlyPlaying: false
-        },
-        {
-            id: 1,
-            gamename: "Bravely Default",
-            timesbeaten: 1,
-            console: "DS",
-            currentlyPlaying: false
-        },
-        {
-            id: 4,
-            gamename: "Bravely Second",
-            timesbeaten: 0,
-            console: "DS",
-            currentlyPlaying: true
-        },
-        {
-            id: 9,
-            gamename: "Kirby Canvas Curse",
-            timesbeaten: 1,
-            console: "DS",
-            currentlyPlaying: false
-        },
-        {
-            id: 10,
-            gamename: "New Super Mario Bros DS",
-            timesbeaten: 2,
-            console: "DS",
-            currentlyPlaying: false
-        },
-        {
-            id: 8,
-            gamename: "Sticker Star",
-            timesbeaten: 0,
-            console: "DS",
-            currentlyPlaying: false
-        },
-        {
-            id: 2,
-            gamename: "Skyward Sword",
-            timesbeaten: 0,
-            console: "Wii",
-            currentlyPlaying: false
-        },
-        {
-            id: 3,
-            gamename: "Pikmin",
-            timesbeaten: 0,
-            console: "Wii",
-            currentlyPlaying: false
-        },
-        {
-            id: 5,
-            gamename: "Kirby's Epic Yarn",
-            timesbeaten: 1,
-            console: "Wii",
-            currentlyPlaying: false
-        },
-        {
-            id: 6,
-            gamename: "Super Mario Bros",
-            timesbeaten: 25,
-            console: "Legacy",
-            currentlyPlaying: false
-        }
-    ];
+var AddGameToList = React.createClass({
+    getInitialState: function() {
+        return {
+            games: []
+        };
+    },
+    addGame: function(e) {
+        var gameArray = this.state.games;
+        gameCount++;
+        gameArray.push( 
+            {
+                gamename: this.userTitle.value,
+                id: gameCount,
+                timesbeaten: this.userFinished.value,
+                console: this.userConsole.value,
+                currentlyPlaying: this.userPlayStatus.value
+            }
+        );
+        
+        this.setState({
+            games: gameArray
+        });
+
+        this.userTitle.value = "";
+        this.userFinished.value = "never finished";
+        this.userConsole.value = "";
+        this.userPlayStatus.value = "playing";
+        e.preventDefault();
+    },
+    render: function() {
+        return (
+            <div> 
+                <h1>Favorite Video Game Library</h1>   
+                <div className="updateForm">
+                    <form onSubmit={this.addGame}>
+                        <input ref={ (arg) => this.userTitle = arg}
+                            placeholder="Enter a title...">
+                        </input>
+                        <input ref={ (arg) => this.userConsole = arg}
+                            placeholder="Enter the console...">
+                        </input>
+                        <select name="completions" ref={ (arg) => this.userFinished = arg}>
+                            <option value="never finished">0</option>
+                            <option value="finished once">1</option>
+                            <option value="finished twice">2</option>
+                            <option value="finished many times">3+</option>
+                        </select>
+
+                        <select name="playStatus" ref={ (arg) => this.userPlayStatus = arg}>
+                            <option value="playing">Currently Playing</option>
+                            <option value="not playing">Not Playing</option>
+                        </select>
+
+                        <button type="submit">Add Game</button>
+                    </form>
+                </div>
+                <ListContainer listState={this.state.games}/>
+            </div>
+        );
+    }
+});
 
 ReactDOM.render(
-	<ListContainer listState={startState}/>,
+    <AddGameToList />,
 	document.getElementById('listbox')
 ); 
